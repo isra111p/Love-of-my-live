@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #1b1b1b, #000);
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .heart {
+      width: 120px;
+      height: 120px;
+      background: #ff4d6d;
+      transform: rotate(45deg);
+      animation: pulse 2.2s infinite ease-in-out;
+      box-shadow: 0 0 40px rgba(255,77,109,0.6);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: #ff4d6d;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -60px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -60px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0%   { transform: rotate(45deg) scale(1); }
+      50%  { transform: rotate(45deg) scale(1.12); }
+      100% { transform: rotate(45deg) scale(1); }
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 24px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+    }
+
+    iframe {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="heart"></div>
+  </div>
+
+  <div class="hint">tap anywhere</div>
+
+  <!-- SoundCloud embed -->
+  <iframe
+    id="sc-player"
+    width="0"
+    height="0"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-209849591-247762953/hanya-rindu-andmesh-kamaleng&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
+  </iframe>
+
+  <script>
+    // Mobile autoplay workaround: start on first interaction
+    document.addEventListener("click", () => {
+      const iframe = document.getElementById("sc-player");
+      iframe.src = iframe.src; // reloads → triggers play
+      document.querySelector(".hint").style.display = "none";
+    }, { once: true });
+  </script>
+
+</body>
+</html>
